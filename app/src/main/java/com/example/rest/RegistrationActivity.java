@@ -38,7 +38,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     jsonAuthentification.put("name", userName.getText());
                     jsonAuthentification.put("email", userEmail.getText());
                     jsonAuthentification.put("password", userPassword.getText());
-                    jsonAuthentification.put("licence", "");
+                    jsonAuthentification.put("licence", "MNA-1A-5U-309");
                     connectionRest.setObj(jsonAuthentification);
                     connectionRest.execute("CREATE_USER");
                     String token = connectionRest.get();

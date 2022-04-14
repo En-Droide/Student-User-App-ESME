@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Rest">
         <activity
+            android:name=".calendar"
+            android:exported="false" />
+        <activity
             android:name=".RegistrationActivity"
             android:exported="false" />
         <activity
