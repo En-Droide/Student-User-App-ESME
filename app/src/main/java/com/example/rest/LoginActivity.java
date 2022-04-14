@@ -59,8 +59,7 @@ public class LoginActivity extends AppCompatActivity {
                         String tabToken[]=token.split("\\.");
                         byte tableByte[] = Base64.decode(tabToken[1],Base64.DEFAULT);
                         String tokenJson=new String(tableByte,"utf-8");
-                        JSONArray jsonArray = new JSONArray(tokenJson);
-                        JSONObject objJson = jsonArray.getJSONObject(0);
+                        JSONObject objJson = new JSONObject(tokenJson);
 
                         Log.v("TOKEN", token);
                         Log.v("PAYLOAD64", tabToken[1]);
