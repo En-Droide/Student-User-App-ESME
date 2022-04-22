@@ -6,6 +6,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+<<<<<<< Updated upstream
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +16,19 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
+=======
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ListView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+>>>>>>> Stashed changes
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+<<<<<<< Updated upstream
         ArrayList<Product> listData = getListData();
         final ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(new CustomListAdapter(this, listData));
@@ -53,12 +68,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public ArrayList<Product> getListData(){
+=======
+        ArrayList<Note> listData = getListData();
+        final ListView listView = (ListView) findViewById(R.id.notesList);
+        listView.setAdapter(new CustomListAdapterNotes(this, listData));
+
+
+
+
+
+
+    }
+    public ArrayList<Note> getListData(){
+>>>>>>> Stashed changes
         try{
             ConnectionRest connectionRest = new ConnectionRest();
             connectionRest.execute("GET");
             String listJsonObjs = connectionRest.get();
             if(listJsonObjs != null) {
+<<<<<<< Updated upstream
                 return connectionRest.parse(listJsonObjs);
+=======
+                return parse(listJsonObjs);
+>>>>>>> Stashed changes
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -67,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return null;
     }
+<<<<<<< Updated upstream
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -87,5 +120,19 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+=======
+    public ArrayList<Note> parse(final String json) {
+        try {
+            final ArrayList<Note> notes = new ArrayList<>();
+            final JSONArray jNoteArray = new JSONArray(json);
+            for (int i = 0; i < jNoteArray.length(); i++) {
+                notes.add(new Note(jNoteArray.optJSONObject(i)));
+            }
+            return notes;
+        } catch (JSONException e) {
+            Log.v("TAG","[JSONException] e : " + e.getMessage());
+        }
+        return null;
+>>>>>>> Stashed changes
     }
 }

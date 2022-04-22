@@ -11,13 +11,13 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class CustomListAdapter extends BaseAdapter {
+public class CustomListAdapterNotes extends BaseAdapter {
 
-    private ArrayList<Product> listData;
+    private ArrayList<Note> listData;
     private LayoutInflater layoutInflater;
     private Context context;
 
-    public CustomListAdapter(Context aContext, ArrayList<Product> listData) {
+    public CustomListAdapterNotes(Context aContext, ArrayList<Note> listData) {
         this.context = aContext;
         this.listData = listData;
         layoutInflater = LayoutInflater.from(aContext);
@@ -26,12 +26,12 @@ public class CustomListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null) {
-            convertView = layoutInflater.inflate(R.layout.activity_custom_list_view, null);
+            convertView = layoutInflater.inflate(R.layout.activity_custom_list_view_notes, null);
             holder = new ViewHolder();
             holder.id = (TextView) convertView.findViewById(R.id.textId);
-            holder.name = (TextView) convertView.findViewById(R.id.textID_eleve);
-            holder.type = (TextView) convertView.findViewById(R.id.textMatiere);
-            holder.price = (TextView) convertView.findViewById(R.id.textNote);
+            holder.id_eleve = (TextView) convertView.findViewById(R.id.textID_eleve);
+            holder.matiere = (TextView) convertView.findViewById(R.id.textMatiere);
+            holder.note = (TextView) convertView.findViewById(R.id.textNote);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -42,21 +42,21 @@ public class CustomListAdapter extends BaseAdapter {
             convertView.setBackgroundColor(Color.rgb(150,245,170));
         }
 
-        Product product = this.listData.get(position);
-        holder.id.setText(""+product.getId());
-        holder.name.setText(product.getName());
-        holder.type.setText(product.getType());
-        holder.price.setText(""+product.getPrice());
-        Log.v("CUSTOM",""+product.getName()+" "+product.getType());
+        Note note = this.listData.get(position);
+        holder.id.setText(""+note.getId());
+        holder.id_eleve.setText(note.getId_eleve());
+        holder.matiere.setText(note.getMatiere());
+        holder.note.setText(""+note.getNote());
+        Log.v("CUSTOM",""+note.getMatiere()+" "+note.getNote());
 
         return convertView;
     }
 
     static class ViewHolder {
         TextView id;
-        TextView name;
-        TextView type;
-        TextView price;
+        TextView id_eleve;
+        TextView matiere;
+        TextView note;
     }
 
     public int getCount() {

@@ -6,11 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+<<<<<<< Updated upstream
 
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+=======
+    <ScrollView
+        android:id="@+id/mainScroll"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/mainLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+>>>>>>> Stashed changes
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
@@ -22,4 +39,36 @@
         android:rotation="45"
         app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
 
+<<<<<<< Updated upstream
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
+=======
+            <ImageView
+                android:id="@+id/imageCalendar"
+                android:layout_width="match_parent"
+                android:layout_height="367dp"
+                app:srcCompat="@android:drawable/ic_menu_today" />
+
+            <ListView
+                android:id="@+id/notesList"
+                android:layout_width="match_parent"
+                android:layout_height="188dp"
+                android:isScrollContainer="true"
+                android:nestedScrollingEnabled="true" />
+
+            <ImageView
+                android:id="@+id/imageApps"
+                android:layout_width="match_parent"
+                android:layout_height="302dp"
+                app:srcCompat="@android:drawable/ic_dialog_dialer" />
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                app:srcCompat="@android:drawable/ic_dialog_email" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+>>>>>>> Stashed changes
