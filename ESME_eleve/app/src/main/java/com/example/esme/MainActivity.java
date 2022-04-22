@@ -1,6 +1,7 @@
 package com.example.esme;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,21 +10,24 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.Query;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.text.SimpleDateFormat;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class MainActivity extends Activity {
     private final String TAG = null;
     DatabaseReference database;
     private FirebaseAuth mAuth;
+
+    private SimpleDateFormat sdfJour = new SimpleDateFormat("E dd MM yyyy HH:mm:ss", Locale.getDefault());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +37,30 @@ public class MainActivity extends Activity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
-        TextView texte = findViewById(R.id.textViewTitre);
-        Button bouton = findViewById(R.id.button);
+        TextView textViewDate = findViewById(R.id.textViewDate);
+        TextView textViewUser = findViewById(R.id.textViewUser);
+        Button btDisc = findViewById(R.id.btDisconnect);
+        String currentDate = sdfJour.format(new Date());
+        textViewDate.setText(currentDate);
+
+        Thread t = new Thread(){
+            @Override
+            public void run(){
+                try {
+                    while(!isInterrupted()){
+                        Thread.sleep(1000);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run(){
+                                textViewDate.setText(sdfJour.format(new Date(System.currentTimeMillis())));
+                            }
+                        });
+                    }
+                }catch(InterruptedException e) {
+                }
+            }
+        };
+        t.start();
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
@@ -42,15 +68,22 @@ public class MainActivity extends Activity {
         if (user != null) {
             String name = user.getDisplayName();
             String emailAdress = user.getEmail();
-            texte.setText(name+"\n"+emailAdress);
+            if(name.equals("")){
+                name="Nom manquant";
+            }
+            textViewUser.setText(name+"\n"+emailAdress);
         } else {
-            texte.setText("Erreur");
+            textViewUser.setText("Erreur");
         }
 
-        bouton.setOnClickListener(new View.OnClickListener() {
+        btDisc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                mAuth.signOut();
+                FirebaseUser user=null;
+                Log.d(TAG,"Utilisateur déconnecté");
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
             }
         });
 

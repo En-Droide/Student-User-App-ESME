@@ -37,6 +37,7 @@ public class LoginActivity extends Activity {
     private TextView texteBas;
 
     private FirebaseAuth mAuth;
+    private FirebaseUser user;
     private String TAG="EmailPassword";
 
     @Override
@@ -64,13 +65,9 @@ public class LoginActivity extends Activity {
                 String password = userPassword.getText().toString();
                 signIn(email,password);
 
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                //user = FirebaseAuth.getInstance().getCurrentUser();
 
-                if (user != null) {
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
-                } else {
-                }
+
                 //AuthStateListener si besoin
 
             }
@@ -84,8 +81,13 @@ public class LoginActivity extends Activity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            user = mAuth.getCurrentUser();
                             updateUI(user);
+                            if (user != null) {
+                                Log.d(TAG,"Utilisateur connecté : "+user.getDisplayName());
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                startActivity(intent);
+                            }
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
@@ -116,11 +118,6 @@ public class LoginActivity extends Activity {
                                 }
                             });
             }
-            String name = user.getDisplayName();
-            String emailAdress = user.getEmail();
-            texteBas.setText(name+"\n"+emailAdress);
-        } else {
-            texteBas.setText("Erreur");
         }
     }
 }
