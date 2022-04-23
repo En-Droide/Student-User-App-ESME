@@ -18,7 +18,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -31,6 +30,9 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
+
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -40,6 +42,7 @@ public class MainActivity extends Activity {
         TextView textViewDate = findViewById(R.id.textViewDate);
         TextView textViewUser = findViewById(R.id.textViewUser);
         Button btDisc = findViewById(R.id.btDisconnect);
+        Button btcal = findViewById(R.id.btcalendar);
         String currentDate = sdfJour.format(new Date());
         textViewDate.setText(currentDate);
 
@@ -85,7 +88,21 @@ public class MainActivity extends Activity {
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
+
+
         });
+        btcal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                FirebaseUser user=null;
+                Intent intent = new Intent(MainActivity.this, CalendarAdapter.class);
+                startActivity(intent);
+            }
+
+
+        });
+
 
     }
 }

@@ -67,11 +67,19 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <Button
+                android:id="@+id/btcalendar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ButtonTEST" />
+
             <ImageView
                 android:id="@+id/imageViewCalendar"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="323dp"
                 android:src="@android:drawable/ic_menu_my_calendar" />
+
+
 
             <ImageView
                 android:id="@+id/imageView3"
@@ -84,6 +92,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:src="@android:drawable/ic_dialog_info" />
+
         </LinearLayout>
     </ScrollView>
 
