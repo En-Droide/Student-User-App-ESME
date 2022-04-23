@@ -1,5 +1,6 @@
 package com.example.esme;
 
+
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -12,25 +13,29 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.time.LocalDate;
+//import java.time.LocalDate;import java.time.format.DateTimeFormatter;
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.format.DateTimeFormatter;
+import org.threeten.bp.LocalDateTime;
 import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class Calendar extends AppCompatActivity implements CalendarAdapter.OnItemListener
+
+public class Calendarv2 extends AppCompatActivity implements CalendarAdapter.OnItemListener
 {
     private TextView monthYearText;
     private RecyclerView calendarRecyclerView;
-    private LocalDate selectedDate;
+    private LocalDateTime selectedDate;
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initWidgets();
-        selectedDate = LocalDate.now();
+        selectedDate = LocalDateTime.now();
+        //System.out.println(selectedDate);
         setMonthView();
     }
 
@@ -41,9 +46,8 @@ public class Calendar extends AppCompatActivity implements CalendarAdapter.OnIte
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    private void setMonthView()
-    {
+
+    private void setMonthView() {
         monthYearText.setText(monthYearFromDate(selectedDate));
         ArrayList<String> daysInMonth = daysInMonthArray(selectedDate);
 
@@ -53,15 +57,17 @@ public class Calendar extends AppCompatActivity implements CalendarAdapter.OnIte
         calendarRecyclerView.setAdapter(calendarAdapter);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    private ArrayList<String> daysInMonthArray(LocalDate date)
+
+    private ArrayList<String> daysInMonthArray(LocalDateTime date)
     {
         ArrayList<String> daysInMonthArray = new ArrayList<>();
-        YearMonth yearMonth = YearMonth.from(date);
+        System.out.println(date);
+
+        YearMonth yearMonth = YearMonth.from(20140218);
 
         int daysInMonth = yearMonth.lengthOfMonth();
 
-        LocalDate firstOfMonth = selectedDate.withDayOfMonth(1);
+        LocalDateTime firstOfMonth = selectedDate.withDayOfMonth(1);
         int dayOfWeek = firstOfMonth.getDayOfWeek().getValue();
 
         for(int i = 1; i <= 42; i++)
@@ -78,28 +84,28 @@ public class Calendar extends AppCompatActivity implements CalendarAdapter.OnIte
         return  daysInMonthArray;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    private String monthYearFromDate(LocalDate date)
+
+    private String monthYearFromDate(LocalDateTime date)
     {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM yyyy");
         return date.format(formatter);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
+
     public void previousMonthAction(View view)
     {
         selectedDate = selectedDate.minusMonths(1);
         setMonthView();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
+
     public void nextMonthAction(View view)
     {
         selectedDate = selectedDate.plusMonths(1);
         setMonthView();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
+
     @Override
     public void onItemClick(int position, String dayText)
     {

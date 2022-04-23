@@ -30,9 +30,6 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
-
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -96,7 +93,7 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 mAuth.signOut();
                 FirebaseUser user=null;
-                Intent intent = new Intent(MainActivity.this, CalendarAdapter.class);
+                Intent intent = new Intent(MainActivity.this, Calendarv2.class);
                 startActivity(intent);
             }
 
