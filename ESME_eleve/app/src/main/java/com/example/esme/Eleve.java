@@ -1,13 +1,15 @@
 package com.example.esme;
 
+import java.util.ArrayList;
+
 public class Eleve {
-    public String username,email,nom,prenom;
+    public String email,nom,prenom;
+    public ArrayList<Note> notes;
 
     public Eleve() {
-        // Default constructor required for calls to DataSnapshot.getValue(User.class)
-    }
-    public Eleve(String nom, String prenom) {
-        this.nom = nom;
-        this.prenom = prenom;
+        this.nom="placeholder nom";
+        this.prenom="placeholder prenom";
+        this.email="placeholder email";
+        this.notes=new ArrayList<Note>();
     }
 }
