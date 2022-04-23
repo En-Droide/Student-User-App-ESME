@@ -10,6 +10,6 @@ public class Eleve {
         this.nom="placeholder nom";
         this.prenom="placeholder prenom";
         this.email="placeholder email";
-        this.notes=new ArrayList<Note>();
+        this.notes=new ArrayList<>();
     }
 }

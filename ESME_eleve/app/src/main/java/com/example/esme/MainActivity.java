@@ -1,5 +1,6 @@
 package com.example.esme;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -41,9 +42,9 @@ import java.util.Locale;
 
 public class MainActivity extends Activity {
     private final String TAG = null;
-    private String name,emailAdress;
+    private String name,emailAdress,userName;
+    private double startTime;
     public Eleve eleve;
-    Boolean eleveCree=false;
     public ArrayList<Note> listeNotes=new ArrayList<>();
 
     TextView textViewDate,textViewUser,textViewDb;
@@ -69,10 +70,11 @@ public class MainActivity extends Activity {
 
         String currentDate = sdfJour.format(new Date());
         textViewDate.setText(currentDate);
-        Thread t = new Thread(){
+        Thread threadTemps = new Thread(){
             @Override
             public void run(){
                 try {
+                    startTime = System.currentTimeMillis();
                     while(!isInterrupted()){
                         Thread.sleep(1000);
                         runOnUiThread(new Runnable() {
@@ -81,12 +83,17 @@ public class MainActivity extends Activity {
                                 textViewDate.setText(sdfJour.format(new Date(System.currentTimeMillis())));
                             }
                         });
+                        if(System.currentTimeMillis()-startTime>200&&System.currentTimeMillis()-startTime<1200){
+                            updateUI();
+                        }
                     }
                 }catch(InterruptedException e) {
                 }
             }
         };
-        t.start();
+        threadTemps.start();
+
+
 
         btDisc = findViewById(R.id.btDisconnect);
         btDisc.setOnClickListener(new View.OnClickListener() {
@@ -103,42 +110,37 @@ public class MainActivity extends Activity {
         btUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //eleve.notes.add(listeNotes.get(0));
-                textViewDb.append("\n"+listeNotes.get(0).matiere);
+
             }
         });
 
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
-        if (user != null) {
-            name = user.getDisplayName();
-            emailAdress = user.getEmail();
-            textViewUser.setText(name + "\n" + emailAdress);
-            textViewDb.append("\n"+name + " " + emailAdress);
+        eleve = new Eleve();
+        createEleve(user);
+        getNotes(user);
 
-            eleve = createEleve(user);
-            getNotes(user);
-        }
-        else {
-            textViewUser.setText("Erreur");
-        }
-
+        userName = user.getDisplayName();
+        emailAdress = user.getEmail();
+        textViewUser.setText(userName + "\n" + emailAdress);
+        textViewDb.append("\n"+userName + " " + emailAdress);
 
 
     }
-    private Eleve createEleve(FirebaseUser user){
+    private void createEleve(FirebaseUser user){
         db.collection("eleves").document(user.getEmail()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        Eleve eleve = document.toObject(Eleve.class);
+                        eleve.nom=document.getString("nom");
+                        eleve.prenom=document.getString("prenom");
+                        eleve.email=document.getString("email");
                         Log.d(TAG,"entité élève créée : "+eleve.nom);
-                        eleveCree=true;
                         name=eleve.prenom+" "+eleve.nom;
-                        if(name==null){
+                        if(userName==null){
                             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                                     .setDisplayName(name)
                                     .build();
@@ -160,23 +162,26 @@ public class MainActivity extends Activity {
                 }
             }
         });
-        return eleve;
     }
     private void getNotes(FirebaseUser user){
-        listeNotes=new ArrayList<>();
         db.collection("eleves").document(user.getEmail()).collection("notes").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        listeNotes.add(document.toObject(Note.class));
-                        System.out.println(listeNotes.get(0).matiere);
-                        Log.d(TAG, document.getId() + " => " + document.getData());
+                        eleve.notes.add(document.toObject(Note.class));
+                        //Log.d(TAG, document.getId() + " => " + document.getData());
                     }
                 } else {
                     Log.d(TAG, "Error getting documents: ", task.getException());
                 }
             }
+        });
+    }
+    @SuppressLint("NewApi")
+    private void updateUI(){
+        eleve.notes.forEach(n -> {
+            textViewDb.append("\n"+n.matiere+" : "+n.note);
         });
     }
 }

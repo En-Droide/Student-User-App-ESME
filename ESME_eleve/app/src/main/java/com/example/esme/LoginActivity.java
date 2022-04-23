@@ -63,6 +63,9 @@ public class LoginActivity extends Activity {
 //        userEmail.setText("michel.george@esme.fr");
 //        userPassword.setText("mdpmdp1");
 
+        DatabaseThread databaseThread = new DatabaseThread();
+        databaseThread.start();
+
         mAuth = FirebaseAuth.getInstance();
 
         buttonLogin.setOnClickListener(new View.OnClickListener() {
