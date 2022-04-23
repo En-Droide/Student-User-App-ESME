@@ -22,6 +22,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,7 +41,9 @@ public class LoginActivity extends Activity {
 
     private FirebaseAuth mAuth;
     private FirebaseUser user;
+    private FirebaseFirestore db;
     private String TAG="EmailPassword";
+    private String name,emailAdress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,14 +52,19 @@ public class LoginActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         userEmail = (EditText)findViewById(R.id.user_email);
         userPassword = (EditText)findViewById(R.id.user_password);
         buttonLogin = (Button)findViewById(R.id.button_login);
         texteBas= (TextView) findViewById(R.id.textViewBas);
-
         userEmail.setText("robin.lotode@esme.fr");
         userPassword.setText("@ndroid16");
+//        userEmail.setText("michel.george@esme.fr");
+//        userPassword.setText("mdpmdp1");
+
+        DatabaseThread databaseThread = new DatabaseThread();
+        databaseThread.start();
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -64,10 +74,7 @@ public class LoginActivity extends Activity {
                 String email = userEmail.getText().toString();
                 String password = userPassword.getText().toString();
                 signIn(email,password);
-
                 //user = FirebaseAuth.getInstance().getCurrentUser();
-
-
                 //AuthStateListener si besoin
 
             }
@@ -82,9 +89,10 @@ public class LoginActivity extends Activity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             user = mAuth.getCurrentUser();
-                            updateUI(user);
                             if (user != null) {
-                                Log.d(TAG,"Utilisateur connecté : "+user.getDisplayName());
+                                name=user.getDisplayName();
+                                emailAdress=user.getEmail();
+                                Log.d(TAG,"Utilisateur connecté : "+name+" "+email);
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 startActivity(intent);
                             }
@@ -92,32 +100,8 @@ public class LoginActivity extends Activity {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                             mAuth.signOut();
-                            updateUI(null);
                         }
                     }
                 });
-    }
-    private void reload() {
-
-    }
-
-    private void updateUI(FirebaseUser user) {
-        if (user != null) {
-            if(user.getEmail().equals("robin.lotode@esme.fr")&&!user.getDisplayName().equals("Robin Lotode")) {
-                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                            .setDisplayName("Robin Lotode")
-                            .build();
-
-                    user.updateProfile(profileUpdates)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        Log.d(TAG, "User profile updated : "+user.getEmail()+" a comme nom "+user.getDisplayName()+".");
-                                    }
-                                }
-                            });
-            }
-        }
     }
 }
