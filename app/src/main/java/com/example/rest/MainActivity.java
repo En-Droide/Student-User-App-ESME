@@ -68,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public ArrayList<Product> getListData(){
-=======
         ArrayList<Note> listData = getListData();
         final ListView listView = (ListView) findViewById(R.id.notesList);
         listView.setAdapter(new CustomListAdapterNotes(this, listData));

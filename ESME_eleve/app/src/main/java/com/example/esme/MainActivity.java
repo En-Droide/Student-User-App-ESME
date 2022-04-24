@@ -11,11 +11,15 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Adapter;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -45,10 +49,10 @@ public class MainActivity extends Activity {
     private String name,emailAdress,userName;
     private double startTime;
     public Eleve eleve;
-    public ArrayList<Note> listeNotes=new ArrayList<>();
 
     TextView textViewDate,textViewUser,textViewDb;
-    Button btDisc,btUpdate;
+    Button btDisc;
+    RecyclerView recyclerViewNotes;
 
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
@@ -67,6 +71,8 @@ public class MainActivity extends Activity {
         textViewDate = findViewById(R.id.textViewDate);
         textViewUser = findViewById(R.id.textViewUser);
         textViewDb = findViewById(R.id.textViewDb);
+        recyclerViewNotes = findViewById(R.id.RecyclerViewNotes);
+        recyclerViewNotes.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
         String currentDate = sdfJour.format(new Date());
         textViewDate.setText(currentDate);
@@ -81,11 +87,12 @@ public class MainActivity extends Activity {
                             @Override
                             public void run(){
                                 textViewDate.setText(sdfJour.format(new Date(System.currentTimeMillis())));
+                                if(System.currentTimeMillis()-startTime>200&&System.currentTimeMillis()-startTime<1200){
+                                    recyclerViewNotes.setAdapter(new CustomAdapterNotes(eleve.notes));
+                                    updateUI();
+                                }
                             }
                         });
-                        if(System.currentTimeMillis()-startTime>200&&System.currentTimeMillis()-startTime<1200){
-                            updateUI();
-                        }
                     }
                 }catch(InterruptedException e) {
                 }
@@ -106,13 +113,6 @@ public class MainActivity extends Activity {
                 startActivity(intent);
             }
         });
-        btUpdate = findViewById(R.id.btUpdate);
-        btUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
 
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
@@ -125,7 +125,6 @@ public class MainActivity extends Activity {
         emailAdress = user.getEmail();
         textViewUser.setText(userName + "\n" + emailAdress);
         textViewDb.append("\n"+userName + " " + emailAdress);
-
 
     }
     private void createEleve(FirebaseUser user){
@@ -170,7 +169,7 @@ public class MainActivity extends Activity {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         eleve.notes.add(document.toObject(Note.class));
-                        //Log.d(TAG, document.getId() + " => " + document.getData());
+                        Log.d(TAG, document.getId() + " => " + document.getData());
                     }
                 } else {
                     Log.d(TAG, "Error getting documents: ", task.getException());
