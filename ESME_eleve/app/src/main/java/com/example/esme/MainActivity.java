@@ -46,7 +46,6 @@ public class MainActivity extends Activity {
     TextView textViewDate,textViewUser,textViewDb;
     Button btDisc,btNotes;
     RecyclerView recyclerViewNotes;
-    Button btDisc,btUpdate;
     ImageButton btcal;
 
     public static FirebaseFirestore db;
@@ -63,8 +62,6 @@ public class MainActivity extends Activity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
-        
-        btDisc = findViewById(R.id.btDisconnect);
         btcal = findViewById(R.id.calendar_image_button);
         textViewDate = findViewById(R.id.textViewDate);
         textViewUser = findViewById(R.id.textViewUser);
@@ -120,14 +117,6 @@ public class MainActivity extends Activity {
             }
 
 
-        });
-
-        btUpdate = findViewById(R.id.btUpdate);
-        btUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
         });
 
         db = FirebaseFirestore.getInstance();
