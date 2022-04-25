@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
@@ -35,6 +36,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -46,19 +48,19 @@ import java.util.Locale;
 
 public class MainActivity extends Activity {
     private final String TAG = null;
-    private String name,emailAdress,userName;
+    public static String name,emailAdress,userName;
     private double startTime;
-    public Eleve eleve;
+    public static Eleve eleve;
 
     TextView textViewDate,textViewUser,textViewDb;
-    Button btDisc;
+    Button btDisc,btNotes;
     RecyclerView recyclerViewNotes;
 
-    private FirebaseFirestore db;
-    private FirebaseAuth mAuth;
-    private FirebaseUser user;
+    public static FirebaseFirestore db;
+    public static FirebaseAuth mAuth;
+    public static FirebaseUser user;
 
-    private SimpleDateFormat sdfJour = new SimpleDateFormat("EEEE dd MM yyyy HH:mm:ss", Locale.getDefault());
+    private SimpleDateFormat sdfJour = new SimpleDateFormat("EEEE dd MM yyyy HH:mm:ss", Locale.FRANCE);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +74,7 @@ public class MainActivity extends Activity {
         textViewUser = findViewById(R.id.textViewUser);
         textViewDb = findViewById(R.id.textViewDb);
         recyclerViewNotes = findViewById(R.id.RecyclerViewNotes);
-        recyclerViewNotes.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerViewNotes.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
         String currentDate = sdfJour.format(new Date());
         textViewDate.setText(currentDate);
@@ -100,8 +102,6 @@ public class MainActivity extends Activity {
         };
         threadTemps.start();
 
-
-
         btDisc = findViewById(R.id.btDisconnect);
         btDisc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,6 +126,14 @@ public class MainActivity extends Activity {
         textViewUser.setText(userName + "\n" + emailAdress);
         textViewDb.append("\n"+userName + " " + emailAdress);
 
+        btNotes = findViewById(R.id.btNotes);
+        btNotes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, NotesActivity.class);
+                startActivity(intent);
+            }
+        });
     }
     private void createEleve(FirebaseUser user){
         db.collection("eleves").document(user.getEmail()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {

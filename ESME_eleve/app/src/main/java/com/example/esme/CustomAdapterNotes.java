@@ -1,6 +1,7 @@
 package com.example.esme;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,6 +68,13 @@ public class CustomAdapterNotes extends RecyclerView.Adapter<CustomAdapterNotes.
         viewHolder.getTextViewCoeff().setText(localDataSet.get(position).coefficient.toString());
         viewHolder.getTextViewDateNote().setText(localDataSet.get(position).date);
         viewHolder.getTextViewPos().setText(String.valueOf(position));
+
+        if(position % 2 == 0){
+            viewHolder.itemView.setBackgroundColor(Color.rgb(150,245,170));
+        }
+        else{
+            viewHolder.itemView.setBackgroundColor(Color.rgb(150,170,245));
+        }
     }
 
     @Override

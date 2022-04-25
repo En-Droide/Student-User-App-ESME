@@ -90,6 +90,12 @@
                 android:text="Elements de la database"
                 android:textColor="#000000" />
 
+            <Button
+                android:id="@+id/btNotes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Accéder aux notes" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/RecyclerViewNotes"
                 android:layout_width="match_parent"

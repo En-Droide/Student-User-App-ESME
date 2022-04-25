@@ -1,7 +1,5 @@
 package com.example.esme;
 
-import java.util.ArrayList;
-
 public class Note {
     public String date,matiere,intitule;
     public Double note,coefficient;
