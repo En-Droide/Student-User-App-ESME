@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -37,6 +38,7 @@ public class MainActivity extends Activity {
 
     TextView textViewDate,textViewUser,textViewDb;
     Button btDisc,btUpdate;
+    ImageButton btcal;
 
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
@@ -53,8 +55,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         
-        Button btDisc = findViewById(R.id.btDisconnect);
-        Button btcal = findViewById(R.id.btcalendar);
+        btDisc = findViewById(R.id.btDisconnect);
+        btcal = findViewById(R.id.calendar_image_button);
         textViewDate = findViewById(R.id.textViewDate);
         textViewUser = findViewById(R.id.textViewUser);
         textViewDb = findViewById(R.id.textViewDb);

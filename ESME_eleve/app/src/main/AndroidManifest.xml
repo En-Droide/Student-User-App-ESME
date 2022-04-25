@@ -10,14 +10,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ESMEÉlève">
         <activity
+            android:name=".LoginActivity"
+            android:exported="true"
+             />
+        <activity
             android:name=".CoursCalendarActivity"
             android:exported="false" />
         <activity
             android:name=".CalendarActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
-            android:exported="true">
+            android:name=".SplashActivity"
+            android:exported="true"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
