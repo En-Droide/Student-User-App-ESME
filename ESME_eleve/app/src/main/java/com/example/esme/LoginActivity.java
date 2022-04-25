@@ -37,7 +37,7 @@ public class LoginActivity extends Activity {
     private EditText userEmail;
     private EditText userPassword;
     private Button buttonLogin;
-    private TextView texteBas;
+
 
     private FirebaseAuth mAuth;
     private FirebaseUser user;
@@ -57,7 +57,7 @@ public class LoginActivity extends Activity {
         userEmail = (EditText)findViewById(R.id.user_email);
         userPassword = (EditText)findViewById(R.id.user_password);
         buttonLogin = (Button)findViewById(R.id.button_login);
-        texteBas= (TextView) findViewById(R.id.textViewBas);
+
         userEmail.setText("robin.lotode@esme.fr");
         userPassword.setText("@ndroid16");
 //        userEmail.setText("michel.george@esme.fr");
