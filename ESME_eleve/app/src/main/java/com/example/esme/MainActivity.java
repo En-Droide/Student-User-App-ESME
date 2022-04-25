@@ -44,9 +44,8 @@ public class MainActivity extends Activity {
     public static Eleve eleve;
 
     TextView textViewDate,textViewUser,textViewDb;
-    Button btDisc,btNotes;
-    RecyclerView recyclerViewNotes;
-    ImageButton btcal;
+    Button btDisc;
+    ImageButton btcal,btNotes;
 
     public static FirebaseFirestore db;
     public static FirebaseAuth mAuth;
@@ -62,12 +61,9 @@ public class MainActivity extends Activity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
-        btcal = findViewById(R.id.calendar_image_button);
         textViewDate = findViewById(R.id.textViewDate);
         textViewUser = findViewById(R.id.textViewUser);
         textViewDb = findViewById(R.id.textViewDb);
-        recyclerViewNotes = findViewById(R.id.RecyclerViewNotes);
-        recyclerViewNotes.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
         String currentDate = sdfJour.format(new Date());
         textViewDate.setText(currentDate);
@@ -83,7 +79,6 @@ public class MainActivity extends Activity {
                             public void run(){
                                 textViewDate.setText(sdfJour.format(new Date(System.currentTimeMillis())));
                                 if(System.currentTimeMillis()-startTime>200&&System.currentTimeMillis()-startTime<1200){
-                                    recyclerViewNotes.setAdapter(new CustomAdapterNotes(eleve.notes));
                                     updateUI();
                                 }
                             }
@@ -108,6 +103,7 @@ public class MainActivity extends Activity {
 
 
         });
+        btcal = findViewById(R.id.calendar_image_button);
         btcal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,6 +113,14 @@ public class MainActivity extends Activity {
             }
 
 
+        });
+        btNotes = findViewById(R.id.notes_image_button);
+        btNotes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, NotesActivity.class);
+                startActivity(intent);
+            }
         });
 
         db = FirebaseFirestore.getInstance();
@@ -131,14 +135,6 @@ public class MainActivity extends Activity {
         textViewUser.setText(userName + "\n" + emailAdress);
         textViewDb.append("\n"+userName + " " + emailAdress);
 
-        btNotes = findViewById(R.id.btNotes);
-        btNotes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, NotesActivity.class);
-                startActivity(intent);
-            }
-        });
     }
     private void createEleve(FirebaseUser user){
         db.collection("eleves").document(user.getEmail()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {

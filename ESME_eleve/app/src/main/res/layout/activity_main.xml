@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#D5D5D5"
+    android:background="@drawable/background_esme_splash"
     android:nestedScrollingEnabled="true"
     tools:context=".MainActivity">
 
@@ -27,7 +27,8 @@
         android:layout_marginTop="6dp"
         android:src="@drawable/esme_logo"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/image_esme" />
 
     <TextView
         android:id="@+id/textViewUser"
@@ -55,16 +56,43 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageButton
+        android:id="@+id/calendar_image_button"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="74dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/calendrier_fond_bleu"
+        app:layout_constraintEnd_toStartOf="@+id/notes_image_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/notes_image_button"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="74dp"
+        android:adjustViewBounds="true"
+        android:backgroundTint="#0B3849"
+        android:scaleType="fitXY"
+        android:src="?attr/actionModePasteDrawable"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/calendar_image_button"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ScrollView
         android:id="@+id/scrollViewAccueil"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_height="0dp"
+        android:background="#FFFFFF"
         android:contentDescription="@string/welcome"
         android:nestedScrollingEnabled="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btDisconnect">
+        app:layout_constraintTop_toBottomOf="@+id/calendar_image_button">
 
         <LinearLayout
             android:id="@+id/layoutAccueil"
@@ -73,14 +101,6 @@
             android:nestedScrollingEnabled="true"
             android:orientation="vertical">
 
-
-            <ImageButton
-                android:id="@+id/calendar_image_button"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:adjustViewBounds="true"
-                android:scaleType="fitXY"
-                android:src="@drawable/calendrier_fond_bleu" />
 
             <TextView
                 android:id="@+id/textViewDb"
@@ -92,30 +112,6 @@
                 android:layout_marginBottom="5dp"
                 android:text="Elements de la database"
                 android:textColor="#000000" />
-
-            <Button
-                android:id="@+id/btNotes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Accéder aux notes" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/RecyclerViewNotes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp" />
-
-            <ImageView
-                android:id="@+id/imageViewRandom1"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:src="@android:drawable/ic_dialog_dialer" />
-
-            <ImageView
-                android:id="@+id/imageViewRandom2"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:src="@android:drawable/ic_dialog_info" />
 
         </LinearLayout>
     </ScrollView>
