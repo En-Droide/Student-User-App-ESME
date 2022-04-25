@@ -1,5 +1,6 @@
 package com.example.esme;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Eleve {

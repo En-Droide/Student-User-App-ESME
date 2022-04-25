@@ -4,15 +4,22 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Adapter;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -24,6 +31,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -31,20 +39,20 @@ import java.util.Locale;
 
 public class MainActivity extends Activity {
     private final String TAG = null;
-    private String name,emailAdress,userName;
+    public static String name,emailAdress,userName;
     private double startTime;
-    public Eleve eleve;
-    public ArrayList<Note> listeNotes=new ArrayList<>();
+    public static Eleve eleve;
 
     TextView textViewDate,textViewUser,textViewDb;
-    Button btDisc,btUpdate;
+    Button btDisc,btNotes;
+    RecyclerView recyclerViewNotes;
     ImageButton btcal;
 
-    private FirebaseFirestore db;
-    private FirebaseAuth mAuth;
-    private FirebaseUser user;
+    public static FirebaseFirestore db;
+    public static FirebaseAuth mAuth;
+    public static FirebaseUser user;
 
-    private SimpleDateFormat sdfJour = new SimpleDateFormat("EEEE dd MM yyyy HH:mm:ss", Locale.getDefault());
+    private SimpleDateFormat sdfJour = new SimpleDateFormat("EEEE dd MM yyyy HH:mm:ss", Locale.FRANCE);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +62,12 @@ public class MainActivity extends Activity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
-        
-        btDisc = findViewById(R.id.btDisconnect);
         btcal = findViewById(R.id.calendar_image_button);
         textViewDate = findViewById(R.id.textViewDate);
         textViewUser = findViewById(R.id.textViewUser);
         textViewDb = findViewById(R.id.textViewDb);
+        recyclerViewNotes = findViewById(R.id.RecyclerViewNotes);
+        recyclerViewNotes.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
         String currentDate = sdfJour.format(new Date());
         textViewDate.setText(currentDate);
@@ -74,19 +82,18 @@ public class MainActivity extends Activity {
                             @Override
                             public void run(){
                                 textViewDate.setText(sdfJour.format(new Date(System.currentTimeMillis())));
+                                if(System.currentTimeMillis()-startTime>200&&System.currentTimeMillis()-startTime<1200){
+                                    recyclerViewNotes.setAdapter(new CustomAdapterNotes(eleve.notes));
+                                    updateUI();
+                                }
                             }
                         });
-                        if(System.currentTimeMillis()-startTime>200&&System.currentTimeMillis()-startTime<1200){
-                            updateUI();
-                        }
                     }
                 }catch(InterruptedException e) {
                 }
             }
         };
         threadTemps.start();
-
-
 
         btDisc = findViewById(R.id.btDisconnect);
         btDisc.setOnClickListener(new View.OnClickListener() {
@@ -112,14 +119,6 @@ public class MainActivity extends Activity {
 
         });
 
-        btUpdate = findViewById(R.id.btUpdate);
-        btUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
@@ -132,7 +131,14 @@ public class MainActivity extends Activity {
         textViewUser.setText(userName + "\n" + emailAdress);
         textViewDb.append("\n"+userName + " " + emailAdress);
 
-
+        btNotes = findViewById(R.id.btNotes);
+        btNotes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, NotesActivity.class);
+                startActivity(intent);
+            }
+        });
     }
     private void createEleve(FirebaseUser user){
         db.collection("eleves").document(user.getEmail()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -176,7 +182,7 @@ public class MainActivity extends Activity {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         eleve.notes.add(document.toObject(Note.class));
-                        //Log.d(TAG, document.getId() + " => " + document.getData());
+                        Log.d(TAG, document.getId() + " => " + document.getData());
                     }
                 } else {
                     Log.d(TAG, "Error getting documents: ", task.getException());
