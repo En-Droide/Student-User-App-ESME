@@ -3,8 +3,6 @@ package com.example.esme;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.os.SystemClock;
@@ -15,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -27,10 +26,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -38,11 +33,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -55,6 +46,8 @@ public class MainActivity extends Activity {
     TextView textViewDate,textViewUser,textViewDb;
     Button btDisc,btNotes;
     RecyclerView recyclerViewNotes;
+    Button btDisc,btUpdate;
+    ImageButton btcal;
 
     public static FirebaseFirestore db;
     public static FirebaseAuth mAuth;
@@ -70,6 +63,9 @@ public class MainActivity extends Activity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
+        
+        btDisc = findViewById(R.id.btDisconnect);
+        btcal = findViewById(R.id.calendar_image_button);
         textViewDate = findViewById(R.id.textViewDate);
         textViewUser = findViewById(R.id.textViewUser);
         textViewDb = findViewById(R.id.textViewDb);
@@ -111,6 +107,26 @@ public class MainActivity extends Activity {
                 Log.d(TAG,"Utilisateur déconnecté");
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent);
+            }
+
+
+        });
+        btcal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(MainActivity.this, CalendarActivity.class);
+                startActivity(intent);
+            }
+
+
+        });
+
+        btUpdate = findViewById(R.id.btUpdate);
+        btUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 
