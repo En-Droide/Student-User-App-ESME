@@ -55,7 +55,7 @@ public class CustomAdapterNotes extends RecyclerView.Adapter<CustomAdapterNotes.
     public CustomAdapterNotes.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         // Create a new view, which defines the UI of the list item
         View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.activity_custom_adapter_notes, viewGroup, false);
+                .inflate(R.layout.custom_adapter_notes, viewGroup, false);
         return new ViewHolder(view);
     }
 

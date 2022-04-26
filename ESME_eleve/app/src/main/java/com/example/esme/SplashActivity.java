@@ -12,13 +12,13 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class SplashActivity extends Activity {
+public class SplashActivity extends AppCompatActivity {
 
     Animation topAnim, bottomAnim;
     ImageView logo;
     TextView textlogo;
 
-    private static int SPALSH_SCREEN = 5000;
+    private static int SPLASH_SCREEN = 5000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,7 @@ public class SplashActivity extends Activity {
                 startActivity(intent);
                 finish();
             }
-        },SPALSH_SCREEN);
+        },SPLASH_SCREEN);
 
 
 
