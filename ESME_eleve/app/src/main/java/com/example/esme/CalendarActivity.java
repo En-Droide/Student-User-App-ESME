@@ -30,7 +30,7 @@ public class CalendarActivity extends Activity {
         calendarView.setOnDateChangeListener((new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
-                String date = dayOfMonth+"/"+(month+1)+"/"+year;
+                String date = dayOfMonth+"/"+String.format("%02d",(month+1))+"/"+year;
 
                 try {
                     date1=new SimpleDateFormat("dd/MM/yyyy").parse(date);
@@ -45,6 +45,7 @@ public class CalendarActivity extends Activity {
 
                 Intent intent = new Intent(CalendarActivity.this,CoursCalendarActivity.class);
                 intent.putExtra("date",datechoisie);
+                intent.putExtra("dateformat",date);
                 startActivity(intent);
             }
         }));
