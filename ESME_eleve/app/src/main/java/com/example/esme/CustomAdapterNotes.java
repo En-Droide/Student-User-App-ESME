@@ -16,7 +16,7 @@ public class CustomAdapterNotes extends RecyclerView.Adapter<CustomAdapterNotes.
     private ArrayList<Note> localDataSet;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView textViewMatiere,textViewIntitule,textViewNote,textViewCoeff,textViewDateNote,textViewPos;
+        private final TextView textViewMatiere,textViewIntitule,textViewNote,textViewCoeff,textViewDateNote;
 
         public ViewHolder(@NonNull View view) {
             super(view);
@@ -25,7 +25,6 @@ public class CustomAdapterNotes extends RecyclerView.Adapter<CustomAdapterNotes.
             textViewNote = (TextView) view.findViewById(R.id.textViewNote);
             textViewCoeff = (TextView) view.findViewById(R.id.textViewCoeff);
             textViewDateNote = (TextView) view.findViewById(R.id.textViewDateNote);
-            textViewPos = (TextView) view.findViewById(R.id.textViewPos);
         }
         public TextView getTextViewMatiere() {
             return textViewMatiere;
@@ -41,9 +40,6 @@ public class CustomAdapterNotes extends RecyclerView.Adapter<CustomAdapterNotes.
         }
         public TextView getTextViewDateNote() {
             return textViewDateNote;
-        }
-        public TextView getTextViewPos() {
-            return textViewPos;
         }
     }
     public CustomAdapterNotes(ArrayList<Note> dataSet) {
@@ -67,7 +63,6 @@ public class CustomAdapterNotes extends RecyclerView.Adapter<CustomAdapterNotes.
         viewHolder.getTextViewNote().setText(localDataSet.get(position).note.toString());
         viewHolder.getTextViewCoeff().setText(localDataSet.get(position).coefficient.toString());
         viewHolder.getTextViewDateNote().setText(localDataSet.get(position).date);
-        viewHolder.getTextViewPos().setText(String.valueOf(position));
 
         if(position % 2 == 0){
             viewHolder.itemView.setBackgroundColor(Color.rgb(150,245,170));

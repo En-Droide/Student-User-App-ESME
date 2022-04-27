@@ -4,13 +4,16 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Eleve {
-    public String email,nom,prenom;
+    public String email,nom,prenom,classe;
     public ArrayList<Note> notes;
+    public ArrayList<Cours> emploidutemps;
 
     public Eleve() {
-        this.nom="placeholder nom";
-        this.prenom="placeholder prenom";
-        this.email="placeholder email";
+        this.nom="Nom";
+        this.prenom="Prenom";
+        this.email="Email";
+        this.classe="Classe";
         this.notes=new ArrayList<>();
+        this.emploidutemps=new ArrayList<>();
     }
 }

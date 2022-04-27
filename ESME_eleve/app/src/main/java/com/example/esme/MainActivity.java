@@ -79,6 +79,7 @@ public class MainActivity extends Activity {
                             public void run(){
                                 textViewDate.setText(sdfJour.format(new Date(System.currentTimeMillis())));
                                 if(System.currentTimeMillis()-startTime>200&&System.currentTimeMillis()-startTime<1200){
+                                    getCours(eleve);
                                     updateUI();
                                 }
                             }
@@ -130,6 +131,7 @@ public class MainActivity extends Activity {
         createEleve(user);
         getNotes(user);
 
+
         userName = user.getDisplayName();
         emailAdress = user.getEmail();
         textViewUser.setText(userName + "\n" + emailAdress);
@@ -146,6 +148,7 @@ public class MainActivity extends Activity {
                         eleve.nom=document.getString("nom");
                         eleve.prenom=document.getString("prenom");
                         eleve.email=document.getString("email");
+                        eleve.classe=document.getString("classe");
                         Log.d(TAG,"entité élève créée : "+eleve.nom);
                         name=eleve.prenom+" "+eleve.nom;
                         if(userName==null){
@@ -179,6 +182,23 @@ public class MainActivity extends Activity {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         eleve.notes.add(document.toObject(Note.class));
                         Log.d(TAG, document.getId() + " => " + document.getData());
+                    }
+                } else {
+                    Log.d(TAG, "Error getting documents: ", task.getException());
+                }
+            }
+        });
+    }
+    private void getCours(Eleve eleve){
+        db.collection("classes")
+                .document(eleve.classe).collection("emploidutemps")
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        eleve.emploidutemps.add(document.toObject(Cours.class));
+                        Log.d(TAG, "nsm "+document.getId() + " => " + document.getData());
                     }
                 } else {
                     Log.d(TAG, "Error getting documents: ", task.getException());

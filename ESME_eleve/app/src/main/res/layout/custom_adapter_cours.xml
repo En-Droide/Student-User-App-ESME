@@ -8,7 +8,7 @@
     tools:context=".CustomAdapterNotes">
 
     <TextView
-        android:id="@+id/textViewMatiere"
+        android:id="@+id/textViewMatiereCours"
         android:layout_width="80dp"
         android:layout_height="20dp"
         android:layout_marginStart="5dp"
@@ -19,47 +19,45 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textViewIntitule"
+        android:id="@+id/textViewIntituleCours"
         android:layout_width="50dp"
         android:layout_height="20dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         android:text="Intitulé"
         android:textColor="#000000"
-        app:layout_constraintStart_toEndOf="@+id/textViewMatiere"
+        app:layout_constraintStart_toEndOf="@+id/textViewMatiereCours"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textViewDateNote"
-        android:layout_width="75dp"
+        android:id="@+id/textViewDateCours"
+        android:layout_width="60dp"
         android:layout_height="20dp"
-        android:layout_marginStart="15dp"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         android:text="Date"
         android:textColor="#000000"
-        app:layout_constraintStart_toEndOf="@+id/textViewIntitule"
+        app:layout_constraintStart_toEndOf="@+id/textViewIntituleCours"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textViewNote"
-        android:layout_width="30dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="20dp"
+        android:id="@+id/textViewHeures"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
-        android:text="Note"
-        android:textColor="#000000"
-        app:layout_constraintStart_toEndOf="@+id/textViewDateNote"
+        android:text="Heures"
+        app:layout_constraintStart_toEndOf="@+id/textViewDateCours"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textViewCoeff"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="25dp"
+        android:id="@+id/textViewSalle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
-        android:text="Coeff"
-        android:textColor="#000000"
-        app:layout_constraintStart_toEndOf="@+id/textViewNote"
+        android:text="Salle"
+        app:layout_constraintStart_toEndOf="@+id/textViewHeures"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
