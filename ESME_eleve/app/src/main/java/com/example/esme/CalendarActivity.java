@@ -12,6 +12,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.Toast;
 
@@ -31,6 +33,7 @@ public class CalendarActivity extends Activity {
     private RecyclerView recyclerViewCoursImportant;
     public static Eleve eleve;
     private ArrayList<Cours> coursimportant=new ArrayList<>();
+    private Button crea_event;
 
 
     @SuppressLint("NewApi")
@@ -40,6 +43,7 @@ public class CalendarActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
         CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView1);
+        crea_event = (Button) findViewById(R.id.Bt_Crea_Event);
 
         try {
             datedujour=new SimpleDateFormat("dd/MM/yyyy").parse(chg.format(new Date()));
@@ -99,6 +103,14 @@ public class CalendarActivity extends Activity {
                 startActivity(intent);
             }
         }));
+
+        crea_event.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CalendarActivity.this, New_Event_Cours.class );
+                startActivity(intent);
+            }
+        });
 
 
     }
