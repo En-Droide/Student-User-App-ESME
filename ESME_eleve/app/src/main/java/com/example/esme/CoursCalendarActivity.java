@@ -17,6 +17,7 @@ import android.widget.TextView;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
 
@@ -27,6 +28,8 @@ public class CoursCalendarActivity extends Activity {
     private RecyclerView recyclerViewCours;
     public static Eleve eleve;
     private ArrayList<Cours> coursdujour=new ArrayList<>();
+
+
 
 
     @SuppressLint("NewApi")
@@ -50,6 +53,7 @@ public class CoursCalendarActivity extends Activity {
         eleve.emploidutemps.forEach(n -> {
             if(n.date.equals(dateformat)){
                 coursdujour.add(n);
+
             }
         });
         recyclerViewCours = findViewById(R.id.RecyclerViewCours);
