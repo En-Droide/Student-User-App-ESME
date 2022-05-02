@@ -10,6 +10,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ESMEÉlève">
         <activity
+            android:name=".New_Event_Cours"
+            android:exported="false" />
+        <activity
+            android:name=".MenuDeroulantActivity"
+            android:exported="false"
+            android:label="@string/title_activity_menu_deroulant"
+            android:theme="@style/Theme.ESMEÉlève.NoActionBar" />
+        <activity
+            android:name=".ActivityMenuDeroulant"
+            android:exported="false"
+            android:label="@string/title_activity_menu_deroulant"
+            android:theme="@style/Theme.ESMEÉlève.NoActionBar" />
+        <activity
             android:name=".NotesActivity"
             android:exported="false" />
         <activity
@@ -17,8 +30,7 @@
             android:exported="false" />
         <activity
             android:name=".LoginActivity"
-            android:exported="true"
-             />
+            android:exported="true" />
         <activity
             android:name=".CoursCalendarActivity"
             android:exported="false" />
@@ -27,8 +39,7 @@
             android:exported="false" />
         <activity
             android:name=".SplashActivity"
-            android:exported="true"
-            >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

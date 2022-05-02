@@ -10,10 +10,37 @@
         android:id="@+id/calendarView1"
         android:layout_width="376dp"
         android:layout_height="344dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="35dp"
         android:layout_marginEnd="19dp"
-        android:layout_marginBottom="252dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+
+        android:id="@+id/RVTousCours"
+        android:layout_width="376dp"
+        android:layout_height="156dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="19dp"
+        app:layout_constraintBottom_toTopOf="@+id/Bt_Crea_Event"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/calendarView1" />
+
+    <Button
+        android:id="@+id/Bt_Crea_Event"
+        android:layout_width="373dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="19dp"
+        android:layout_marginBottom="70dp"
+        android:text="NEW EVENT"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/RVTousCours" />
 </androidx.constraintlayout.widget.ConstraintLayout>

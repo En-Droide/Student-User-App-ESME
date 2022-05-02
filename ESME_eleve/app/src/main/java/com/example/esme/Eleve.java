@@ -2,6 +2,7 @@ package com.example.esme;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Eleve {
     public String email,nom,prenom,classe;
@@ -15,5 +16,6 @@ public class Eleve {
         this.classe="Classe";
         this.notes=new ArrayList<>();
         this.emploidutemps=new ArrayList<>();
+
     }
 }
