@@ -13,7 +13,7 @@ public class Note {
     }
     public Note() {
         this.matiere="Placeholder matière";
-        this.date="01-01-1970";
+        this.date="01/01/1970";
         this.note=10.00;
         this.coefficient=1.00;
         this.intitule="Placeholder intitulé";

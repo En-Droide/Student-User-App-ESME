@@ -48,13 +48,17 @@ public class CoursCalendarActivity extends Activity {
         String date = incomingIntent.getStringExtra("date");
         String dateformat = incomingIntent.getStringExtra("dateformat");
         theDate.setText(date);
-
-        eleve=MainActivity.eleve;
+        /*System.out.println("Calendrier du jour");*/
+        eleve=CalendarActivity.eleve;
         eleve.emploidutemps.forEach(n -> {
+            /*System.out.println("cours = "+n.matiere+" le "+n.date);*/
             if(n.date.equals(dateformat)){
+                /*System.out.println("cours du jour = "+n.matiere+" le "+n.date);*/
                 coursdujour.add(n);
-
             }
+            /*else{
+                System.out.println("cours pas correspondant = "+n.matiere+" le "+n.date+" par rapport à "+dateformat);
+            }*/
         });
         recyclerViewCours = findViewById(R.id.RecyclerViewCours);
         recyclerViewCours.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));

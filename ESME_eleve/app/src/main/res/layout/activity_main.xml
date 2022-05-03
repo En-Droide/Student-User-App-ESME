@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@drawable/background_esme_splash"
     android:nestedScrollingEnabled="true"
     tools:context=".MainActivity">
@@ -66,7 +66,8 @@
         android:src="@drawable/calendrier_fond_bleu"
         app:layout_constraintEnd_toStartOf="@+id/notes_image_button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageButton
         android:id="@+id/notes_image_button"
@@ -79,41 +80,34 @@
         android:src="?attr/actionModePasteDrawable"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/calendar_image_button"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
 
-    <ScrollView
-        android:id="@+id/scrollViewAccueil"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="#FFFFFF"
-        android:contentDescription="@string/welcome"
-        android:nestedScrollingEnabled="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toEndOf="parent"
+    <ImageButton
+        android:id="@+id/devoirs_image_button"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:adjustViewBounds="true"
+        android:backgroundTint="#0B3849"
+        android:foreground="?android:attr/actionModeFindDrawable"
+        android:foregroundTint="#FBFBFB"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toStartOf="@+id/empty_image_button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/calendar_image_button">
+        app:layout_constraintTop_toBottomOf="@+id/calendar_image_button"
+        tools:ignore="SpeakableTextPresentCheck" />
 
-        <LinearLayout
-            android:id="@+id/layoutAccueil"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:nestedScrollingEnabled="true"
-            android:orientation="vertical">
-
-
-            <TextView
-                android:id="@+id/textViewDb"
-                android:layout_width="match_parent"
-                android:layout_height="122dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginBottom="5dp"
-                android:text="Elements de la database"
-                android:textColor="#000000" />
-
-        </LinearLayout>
-    </ScrollView>
+    <ImageButton
+        android:id="@+id/empty_image_button"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:adjustViewBounds="true"
+        android:backgroundTint="#0B3849"
+        android:foreground="@android:drawable/stat_sys_warning"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/devoirs_image_button"
+        app:layout_constraintTop_toBottomOf="@+id/calendar_image_button"
+        tools:ignore="SpeakableTextPresentCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

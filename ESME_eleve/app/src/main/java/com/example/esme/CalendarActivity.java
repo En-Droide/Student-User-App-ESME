@@ -50,6 +50,7 @@ public class CalendarActivity extends Activity {
 
         eleve=MainActivity.eleve;
         eleve.emploidutemps.forEach(n -> {
+            System.out.println("cours = "+n.matiere+" le "+n.date);
             if(n.importance.equals("Important")){
 
                 try {
@@ -80,7 +81,7 @@ public class CalendarActivity extends Activity {
         calendarView.setOnDateChangeListener((new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
-                String date = dayOfMonth+"/"+String.format("%02d",(month+1))+"/"+year;
+                String date = String.format("%02d",(dayOfMonth))+"/"+String.format("%02d",(month+1))+"/"+year;
 
                 try {
                     date1=new SimpleDateFormat("dd/MM/yyyy").parse(date);

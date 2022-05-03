@@ -8,6 +8,7 @@ public class Eleve {
     public String email,nom,prenom,classe;
     public ArrayList<Note> notes;
     public ArrayList<Cours> emploidutemps;
+    public ArrayList<Devoir> devoirs;
 
     public Eleve() {
         this.nom="Nom";
@@ -16,6 +17,7 @@ public class Eleve {
         this.classe="Classe";
         this.notes=new ArrayList<>();
         this.emploidutemps=new ArrayList<>();
+        this.devoirs=new ArrayList<>();
 
     }
 }
