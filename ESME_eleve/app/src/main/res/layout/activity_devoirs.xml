@@ -73,36 +73,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageLogoEsme2" />
 
-    <TextView
-        android:id="@+id/textViewTitreDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="6dp"
-        android:text="Date"
-        app:layout_constraintStart_toEndOf="@+id/textViewTitreIntitule"
-        app:layout_constraintTop_toBottomOf="@id/imageLogoEsme2" />
-
-    <TextView
-        android:id="@+id/textViewTitreNote"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="6dp"
-        android:text="Note"
-        app:layout_constraintStart_toEndOf="@+id/textViewTitreDate"
-        app:layout_constraintTop_toBottomOf="@id/imageLogoEsme2" />
-
-    <TextView
-        android:id="@+id/textViewTitreCoeff"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="6dp"
-        android:text="Coeff"
-        app:layout_constraintStart_toEndOf="@+id/textViewTitreNote"
-        app:layout_constraintTop_toBottomOf="@id/imageLogoEsme2" />
-
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="wrap_content"
@@ -118,11 +88,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewNotes2"
+        android:id="@+id/recyclerViewDevoirs"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewTitreMatiere" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

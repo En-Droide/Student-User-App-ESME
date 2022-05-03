@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,17 +23,18 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class NotesActivity extends Activity {
+public class DevoirsActivity extends Activity {
     private final String TAG = null;
     public static String name,emailAdress,userName;
     private SimpleDateFormat sdfJour = new SimpleDateFormat("EEEE dd MM yyyy HH:mm:ss", Locale.FRANCE);
-    private RecyclerView recyclerViewNotes;
+    private RecyclerView recyclerViewDevoirs;
     private TextView textViewDate,textViewUser;
     private Button btDisc;
     public static Eleve eleve;
     public static FirebaseAuth mAuth;
     private double startTime;
 
+    @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,9 +74,9 @@ public class NotesActivity extends Activity {
         emailAdress = eleve.email;
         textViewUser.setText(userName + "\n" + emailAdress);
 
-        recyclerViewNotes = findViewById(R.id.recyclerViewNotes2);
-        recyclerViewNotes.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        recyclerViewNotes.setAdapter(new CustomAdapterNotes(eleve.notes));
+        recyclerViewDevoirs=findViewById(R.id.recyclerViewDevoirs);
+        //recyclerViewDevoirs.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        //recyclerViewDevoirs.setAdapter(new CustomAdapterDevoirs(eleve.devoirs));
 
         btDisc = findViewById(R.id.btDisconnect2);
         btDisc.setOnClickListener(new View.OnClickListener() {
@@ -82,7 +84,7 @@ public class NotesActivity extends Activity {
             public void onClick(View v) {
                 mAuth.signOut();
                 Log.d(TAG,"Utilisateur déconnecté");
-                Intent intent = new Intent(NotesActivity.this, LoginActivity.class);
+                Intent intent = new Intent(DevoirsActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
         });

@@ -43,9 +43,9 @@ public class MainActivity extends Activity {
     private double startTime;
     public static Eleve eleve;
 
-    TextView textViewDate,textViewUser,textViewDb;
+    TextView textViewDate,textViewUser;
     Button btDisc;
-    ImageButton btcal,btNotes;
+    ImageButton btCal,btNotes,btDevoirs;
 
     public static FirebaseFirestore db;
     public static FirebaseAuth mAuth;
@@ -63,7 +63,6 @@ public class MainActivity extends Activity {
 
         textViewDate = findViewById(R.id.textViewDate);
         textViewUser = findViewById(R.id.textViewUser);
-        textViewDb = findViewById(R.id.textViewDb);
 
         String currentDate = sdfJour.format(new Date());
         textViewDate.setText(currentDate);
@@ -80,6 +79,7 @@ public class MainActivity extends Activity {
                                 textViewDate.setText(sdfJour.format(new Date(System.currentTimeMillis())));
                                 if(System.currentTimeMillis()-startTime>200&&System.currentTimeMillis()-startTime<1200){
                                     getCours(eleve);
+                                    getDevoirs(eleve);
                                     updateUI();
                                 }
                             }
@@ -104,11 +104,10 @@ public class MainActivity extends Activity {
 
 
         });
-        btcal = findViewById(R.id.calendar_image_button);
-        btcal.setOnClickListener(new View.OnClickListener() {
+        btCal = findViewById(R.id.calendar_image_button);
+        btCal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent(MainActivity.this, CalendarActivity.class);
                 startActivity(intent);
             }
@@ -120,6 +119,14 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, NotesActivity.class);
+                startActivity(intent);
+            }
+        });
+        btDevoirs = findViewById(R.id.devoirs_image_button);
+        btDevoirs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, DevoirsActivity.class);
                 startActivity(intent);
             }
         });
@@ -135,7 +142,6 @@ public class MainActivity extends Activity {
         userName = user.getDisplayName();
         emailAdress = user.getEmail();
         textViewUser.setText(userName + "\n" + emailAdress);
-        textViewDb.append("\n"+userName + " " + emailAdress);
 
     }
     private void createEleve(FirebaseUser user){
@@ -198,7 +204,24 @@ public class MainActivity extends Activity {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         eleve.emploidutemps.add(document.toObject(Cours.class));
-                        Log.d(TAG, "nsm "+document.getId() + " => " + document.getData());
+                        Log.d(TAG, "cours "+document.getId() + " => " + document.getData());
+                    }
+                } else {
+                    Log.d(TAG, "Error getting documents: ", task.getException());
+                }
+            }
+        });
+    }
+    private void getDevoirs(Eleve eleve){
+        db.collection("classes")
+                .document(eleve.classe).collection("devoirs")
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        eleve.devoirs.add(document.toObject(Devoir.class));
+                        Log.d(TAG, "devoir "+document.getId() + " => " + document.getData());
                     }
                 } else {
                     Log.d(TAG, "Error getting documents: ", task.getException());
@@ -209,7 +232,7 @@ public class MainActivity extends Activity {
     @SuppressLint("NewApi")
     private void updateUI(){
         eleve.notes.forEach(n -> {
-            textViewDb.append("\n"+n.matiere+" : "+n.note);
+
         });
     }
 }
