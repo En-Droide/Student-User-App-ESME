@@ -1,6 +1,5 @@
 package com.example.esme;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,8 +15,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -75,8 +72,8 @@ public class DevoirsActivity extends Activity {
         textViewUser.setText(userName + "\n" + emailAdress);
 
         recyclerViewDevoirs=findViewById(R.id.recyclerViewDevoirs);
-        //recyclerViewDevoirs.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        //recyclerViewDevoirs.setAdapter(new CustomAdapterDevoirs(eleve.devoirs));
+        recyclerViewDevoirs.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        recyclerViewDevoirs.setAdapter(new CustomAdapterDevoirs(eleve.devoirs));
 
         btDisc = findViewById(R.id.btDisconnect2);
         btDisc.setOnClickListener(new View.OnClickListener() {
