@@ -1,6 +1,8 @@
 package com.example.esme;
 
-public class Cours {
+import java.io.Serializable;
+
+public class Cours implements Serializable {
     public String heureDebut,heureFin,date,matiere,intitule,professeur,salle,importance;
     public Cours() {
         this.matiere="matière";
