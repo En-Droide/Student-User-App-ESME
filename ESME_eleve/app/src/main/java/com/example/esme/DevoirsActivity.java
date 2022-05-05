@@ -1,6 +1,5 @@
 package com.example.esme;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,8 +15,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -27,7 +24,7 @@ public class DevoirsActivity extends Activity {
     private final String TAG = null;
     public static String name,emailAdress,userName;
     private SimpleDateFormat sdfJour = new SimpleDateFormat("EEEE dd MM yyyy HH:mm:ss", Locale.FRANCE);
-    private RecyclerView recyclerViewDevoirs;
+    public static RecyclerView recyclerViewDevoirs;
     private TextView textViewDate,textViewUser;
     private Button btDisc;
     public static Eleve eleve;
@@ -41,7 +38,7 @@ public class DevoirsActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_notes);
+        setContentView(R.layout.activity_devoirs);
 
         textViewDate = findViewById(R.id.textViewDate2);
         String currentDate = sdfJour.format(new Date());
@@ -74,9 +71,9 @@ public class DevoirsActivity extends Activity {
         emailAdress = eleve.email;
         textViewUser.setText(userName + "\n" + emailAdress);
 
-        recyclerViewDevoirs=findViewById(R.id.recyclerViewDevoirs);
-        //recyclerViewDevoirs.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        //recyclerViewDevoirs.setAdapter(new CustomAdapterDevoirs(eleve.devoirs));
+        recyclerViewDevoirs=findViewById(R.id.RecyclerViewDevoirs);
+        recyclerViewDevoirs.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        recyclerViewDevoirs.setAdapter(new CustomAdapterDevoirs(eleve.devoirs));
 
         btDisc = findViewById(R.id.btDisconnect2);
         btDisc.setOnClickListener(new View.OnClickListener() {
@@ -88,12 +85,6 @@ public class DevoirsActivity extends Activity {
                 startActivity(intent);
             }
         });
-
-
-
-
-
-
 
 
     }

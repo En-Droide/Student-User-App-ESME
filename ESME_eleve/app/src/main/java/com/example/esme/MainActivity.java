@@ -43,7 +43,7 @@ public class MainActivity extends Activity {
     private double startTime;
     public static Eleve eleve;
 
-    TextView textViewDate,textViewUser;
+    TextView textViewDate,textViewUser,textViewOK;
     Button btDisc;
     ImageButton btCal,btNotes,btDevoirs;
 
@@ -63,6 +63,7 @@ public class MainActivity extends Activity {
 
         textViewDate = findViewById(R.id.textViewDate);
         textViewUser = findViewById(R.id.textViewUser);
+        textViewOK = findViewById(R.id.textViewOK);
 
         String currentDate = sdfJour.format(new Date());
         textViewDate.setText(currentDate);
@@ -130,6 +131,9 @@ public class MainActivity extends Activity {
                 startActivity(intent);
             }
         });
+        btDevoirs.setEnabled(false);
+        btCal.setEnabled(false);
+        btNotes.setEnabled(false);
 
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
@@ -231,8 +235,9 @@ public class MainActivity extends Activity {
     }
     @SuppressLint("NewApi")
     private void updateUI(){
-        eleve.notes.forEach(n -> {
-
-        });
+        btDevoirs.setEnabled(true);
+        btCal.setEnabled(true);
+        btNotes.setEnabled(true);
+        textViewOK.setText("OK");
     }
 }
