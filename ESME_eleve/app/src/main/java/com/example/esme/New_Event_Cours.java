@@ -25,7 +25,6 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class New_Event_Cours extends Activity {
-
     Button TimeButtonD,TimeButtonF,DateButton,ValidButton;
     EditText Intitul;
     CheckBox chk;
@@ -47,7 +46,14 @@ public class New_Event_Cours extends Activity {
         ValidButton=findViewById(R.id.Button_valid);
         chk = (CheckBox) findViewById(R.id.checkBox_Importance);
 
-
+        Intitul.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus&&Intitul.getText().toString().equals("Intitulé")) {
+                    Intitul.setText("");
+                }
+            }
+        });
         ValidButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,15 +64,8 @@ public class New_Event_Cours extends Activity {
                        || heure_f.equals("")|| heure_f==null || importance.equals("")|| importance==null) {
                }
                 else {
-
                    class ObjectIOExample {
-
-
-
-
-
                        public void WriteObjectToFile(Cours serObj) {
-
                            try {
                                System.out.println("WriteObjectToFile");
                                FileOutputStream fileOut = new FileOutputStream(file_event);
@@ -74,16 +73,12 @@ public class New_Event_Cours extends Activity {
                                objectOut.writeObject(serObj);
                                objectOut.close();
                                System.out.println("The Object  was succesfully written to a file");
-
                            } catch (Exception ex) {
                                ex.printStackTrace();
                            }
                        }
-
                        public Cours ReadObjectFromFile(String filepath) {
-
                            try {
-
                                FileInputStream fileIn = new FileInputStream(filepath);
                                ObjectInputStream objectIn = new ObjectInputStream(fileIn);
 
@@ -92,13 +87,11 @@ public class New_Event_Cours extends Activity {
                                System.out.println("The Object has been read from the file");
                                objectIn.close();
                                return obj;
-
                            } catch (Exception ex) {
                                ex.printStackTrace();
                                return null;
                            }
                        }
-
                    }
                    filepath= getFilesDir().getAbsolutePath();
                    System.out.println(getFilesDir().getParent());
@@ -121,13 +114,8 @@ public class New_Event_Cours extends Activity {
                     Intent intent = new Intent(New_Event_Cours.this, CalendarActivity.class);
                     startActivity(intent);
                 }
-
-
             }
-
-
         });
-
     }
     public void onCheckboxClicked(View view) {
         boolean checked = ((CheckBox) view).isChecked();
@@ -138,10 +126,7 @@ public class New_Event_Cours extends Activity {
             importance="Non Important";
                 }
     };
-
-
     private void popDatePicker() {
-
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
@@ -151,7 +136,6 @@ public class New_Event_Cours extends Activity {
                 choix_date=date;
             }
         };
-
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);
         int month = cal.get(Calendar.MONTH);
@@ -159,15 +143,10 @@ public class New_Event_Cours extends Activity {
         int style = AlertDialog.THEME_HOLO_LIGHT;
         datePickerDialog= new DatePickerDialog(this, style, dateSetListener, year, month, day );
     }
-
     public void popDatePicker(View view) {
-
         datePickerDialog.show();
-
     }
-
     public void popTimePickerDebut(View view) {
-
         TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int selectHour, int selectMin) {
@@ -177,15 +156,12 @@ public class New_Event_Cours extends Activity {
                 heure_d=String.format(Locale.getDefault(),"%02d:%02d",hour,minute);
             }
         };
-
         int style= AlertDialog.THEME_HOLO_DARK;
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, style, onTimeSetListener,hour,minute,true);
         timePickerDialog.setTitle("Heure Debut");
         timePickerDialog.show();
     }
-
     public void popTimePickerFin(View view) {
-
         TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int selectHour, int selectMin) {
@@ -195,15 +171,9 @@ public class New_Event_Cours extends Activity {
                 heure_f=String.format(Locale.getDefault(),"%02d:%02d",hour,minute);
             }
         };
-
         int style= AlertDialog.THEME_HOLO_DARK;
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, style, onTimeSetListener,hour,minute,true);
         timePickerDialog.setTitle("Heure Fin");
         timePickerDialog.show();
     }
-
-
-
-
-
 }
