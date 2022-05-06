@@ -52,7 +52,7 @@ public class LoginActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        MainActivity.premierLancement=true;
 
         userEmail = (EditText)findViewById(R.id.user_email);
         userPassword = (EditText)findViewById(R.id.user_password);
@@ -60,9 +60,8 @@ public class LoginActivity extends Activity {
 
         userEmail.setText("robin.lotode@esme.fr");
         userPassword.setText("@ndroid16");
-//        userEmail.setText("michel.george@esme.fr");
-//        userPassword.setText("mdpmdp1");
 
+        db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
 
         buttonLogin.setOnClickListener(new View.OnClickListener() {

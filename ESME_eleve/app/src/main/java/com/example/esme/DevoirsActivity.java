@@ -26,7 +26,7 @@ public class DevoirsActivity extends Activity {
     private SimpleDateFormat sdfJour = new SimpleDateFormat("EEEE dd MM yyyy HH:mm:ss", Locale.FRANCE);
     public static RecyclerView recyclerViewDevoirs;
     private TextView textViewDate,textViewUser;
-    private Button btDisc;
+    private Button btDisc,btRetour;
     public static Eleve eleve;
     public static FirebaseAuth mAuth;
     private double startTime;
@@ -85,7 +85,13 @@ public class DevoirsActivity extends Activity {
                 startActivity(intent);
             }
         });
-
-
+        btRetour=findViewById(R.id.btRetourDevoirs);
+        btRetour.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DevoirsActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Eleve {
+public class Eleve implements Serializable{
     public String email,nom,prenom,classe;
     public ArrayList<Note> notes;
     public ArrayList<Cours> emploidutemps;

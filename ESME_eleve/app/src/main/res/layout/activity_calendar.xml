@@ -4,43 +4,106 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_esme_splash"
     tools:context=".CalendarActivity">
+
+    <ImageView
+        android:id="@+id/imageLogoEsme3"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="6dp"
+        android:src="@drawable/esme_logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewDate3"
+        android:layout_width="200dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="10dp"
+        android:text="Jour + Heure"
+        android:textColor="#000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewUser3"
+        android:layout_width="200dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="36dp"
+        android:text="Nom Utilisateur\nAdresse Mail Utilisateur"
+        android:textAlignment="viewStart"
+        android:textColor="#000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btDisconnect3"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="150dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="28dp"
+        android:text="Se déconnecter"
+        android:textAlignment="viewEnd"
+        android:textColor="#000000"
+        android:textSize="12dp"
+        app:iconPadding="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <CalendarView
         android:id="@+id/calendarView1"
-        android:layout_width="376dp"
+        android:layout_width="0dp"
         android:layout_height="344dp"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="35dp"
-        android:layout_marginEnd="19dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="85dp"
+        android:layout_marginEnd="10dp"
+        android:background="#bee6f2"
+        android:dateTextAppearance="@style/CalendarWeekDatText"
+        app:layout_constraintBottom_toTopOf="@+id/RVTousCours"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <androidx.recyclerview.widget.RecyclerView
 
         android:id="@+id/RVTousCours"
-        android:layout_width="376dp"
-        android:layout_height="156dp"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="22dp"
-        android:layout_marginEnd="19dp"
-        app:layout_constraintBottom_toTopOf="@+id/Bt_Crea_Event"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="65dp"
+        android:background="#bee6f2"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calendarView1" />
 
     <Button
         android:id="@+id/Bt_Crea_Event"
-        android:layout_width="373dp"
-        android:layout_height="53dp"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="19dp"
-        android:layout_marginBottom="70dp"
-        android:text="NEW EVENT"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="15dp"
+        android:text="Nouvel évènement"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btRetourCal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/RVTousCours" />
+
+    <Button
+        android:id="@+id/btRetourCal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:backgroundTint="#C1FFFFFF"
+        android:text="Retour"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

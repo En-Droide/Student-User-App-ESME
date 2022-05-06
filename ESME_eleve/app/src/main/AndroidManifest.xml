@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.esme">
+    <queries>
+        <package android:name="com.moodle.moodlemobile"/>
+    </queries>
 
     <application
         android:allowBackup="true"
@@ -13,23 +16,10 @@
             android:name=".DevoirsActivity"
             android:exported="false" />
         <activity
-            android:name=".New_Event_Cours"
+            android:name=".NewCoursActivity"
             android:exported="false" />
-        <activity
-            android:name=".MenuDeroulantActivity"
-            android:exported="false"
-            android:label="@string/title_activity_menu_deroulant"
-            android:theme="@style/Theme.ESMEÉlève.NoActionBar" />
-        <activity
-            android:name=".ActivityMenuDeroulant"
-            android:exported="false"
-            android:label="@string/title_activity_menu_deroulant"
-            android:theme="@style/Theme.ESMEÉlève.NoActionBar" />
         <activity
             android:name=".NotesActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CustomAdapterNotes"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"

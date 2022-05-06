@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_esme_splash"
     tools:context=".NotesActivity">
 
     <TextView
@@ -47,7 +48,7 @@
         android:layout_marginTop="28dp"
         android:text="Se déconnecter"
         android:textAlignment="viewEnd"
-        android:textColor="#1A237E"
+        android:textColor="#000000"
         android:textSize="12dp"
         app:iconPadding="0dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,6 +61,7 @@
         android:layout_marginStart="3dp"
         android:layout_marginTop="6dp"
         android:text="Matière"
+        android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageLogoEsme2" />
 
@@ -70,6 +72,7 @@
         android:layout_marginStart="125dp"
         android:layout_marginTop="6dp"
         android:text="Intitulé"
+        android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageLogoEsme2" />
 
@@ -91,9 +94,21 @@
         android:id="@+id/RecyclerViewDevoirs"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="#BEE6F2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textViewTitreMatiere" />
+
+    <Button
+        android:id="@+id/btRetourDevoirs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:backgroundTint="#C1FFFFFF"
+        android:text="Retour"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

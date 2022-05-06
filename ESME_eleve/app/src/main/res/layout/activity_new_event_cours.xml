@@ -4,30 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".New_Event_Cours">
+    android:background="#bee6f2"
+    tools:context=".NewCoursActivity">
 
     <TextView
         android:id="@+id/Tilte"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:layout_marginEnd="132dp"
         android:gravity="center_horizontal"
-        android:text="New Event"
+        android:text="Nouvel évènement"
+        android:textColor="#000000"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/Intitule_Event"
         android:layout_width="218dp"
         android:layout_height="52dp"
-        android:layout_marginStart="96dp"
         android:layout_marginTop="140dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Intitulé"
+        android:textColor="#FF000000"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,13 +38,13 @@
         android:id="@+id/checkBox_Importance"
         android:layout_width="218dp"
         android:layout_height="52dp"
-        android:layout_marginStart="96dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:background="@color/light_gray"
         android:gravity="center_horizontal|center_vertical"
         android:onClick="onCheckboxClicked"
         android:text="IMPORTANT"
         android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/select_Hour_Fin_Event" />
 
@@ -49,11 +52,11 @@
         android:id="@+id/Select_Date_Event"
         android:layout_width="218dp"
         android:layout_height="52dp"
-        android:layout_marginStart="96dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:background="@color/blue_esme"
         android:onClick="popDatePicker"
         android:text="Select Date"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Intitule_Event" />
 
@@ -61,11 +64,11 @@
         android:id="@+id/select_Hour_Debut_Event"
         android:layout_width="218dp"
         android:layout_height="52dp"
-        android:layout_marginStart="96dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:background="@color/blue_esme"
         android:onClick="popTimePickerDebut"
         android:text="Heure Debut"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Select_Date_Event" />
 
@@ -73,24 +76,36 @@
         android:id="@+id/select_Hour_Fin_Event"
         android:layout_width="218dp"
         android:layout_height="52dp"
-        android:layout_marginStart="96dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:background="@color/blue_esme"
         android:onClick="popTimePickerFin"
         android:text="Heure Fin"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/select_Hour_Debut_Event" />
 
     <Button
-        android:id="@+id/Button_valid"
-        android:layout_width="wrap_content"
+        android:id="@+id/button_valid"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="156dp"
+        android:layout_marginTop="35dp"
         android:background="@color/blue_esme"
         android:text="Valider"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/checkBox_Importance" />
+
+    <Button
+        android:id="@+id/button_annul"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:background="@color/blue_esme"
+        android:backgroundTint="#000000"
+        android:text="Annuler"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
