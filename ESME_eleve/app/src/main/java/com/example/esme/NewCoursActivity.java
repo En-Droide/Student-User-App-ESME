@@ -4,11 +4,11 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -20,12 +20,11 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class New_Event_Cours extends Activity {
-    Button TimeButtonD,TimeButtonF,DateButton,ValidButton;
+public class NewCoursActivity extends Activity {
+    Button TimeButtonD,TimeButtonF,DateButton,ValidButton,AnnulButton;
     EditText Intitul;
     CheckBox chk;
     int hour,minute;
@@ -37,13 +36,18 @@ public class New_Event_Cours extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_new_event_cours);
+
         popDatePicker();
         Intitul=findViewById(R.id.Intitule_Event);
         TimeButtonD= findViewById(R.id.select_Hour_Debut_Event);
         TimeButtonF= findViewById(R.id.select_Hour_Fin_Event);
         DateButton= findViewById(R.id.Select_Date_Event);
-        ValidButton=findViewById(R.id.Button_valid);
+        ValidButton=findViewById(R.id.button_valid);
+        AnnulButton=findViewById(R.id.button_annul);
         chk = (CheckBox) findViewById(R.id.checkBox_Importance);
 
         Intitul.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -111,9 +115,16 @@ public class New_Event_Cours extends Activity {
                    objectIO.WriteObjectToFile(event);
                    Cours cours = objectIO.ReadObjectFromFile(filepath+"/Test_Event.txt");
                    System.out.println(cours.intitule);
-                    Intent intent = new Intent(New_Event_Cours.this, CalendarActivity.class);
+                    Intent intent = new Intent(NewCoursActivity.this, CalendarActivity.class);
                     startActivity(intent);
                 }
+            }
+        });
+        AnnulButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(NewCoursActivity.this, CalendarActivity.class);
+                startActivity(intent);
             }
         });
     }

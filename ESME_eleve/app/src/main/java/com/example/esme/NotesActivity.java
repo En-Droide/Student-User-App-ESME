@@ -28,7 +28,7 @@ public class NotesActivity extends Activity {
     private SimpleDateFormat sdfJour = new SimpleDateFormat("EEEE dd MM yyyy HH:mm:ss", Locale.FRANCE);
     private RecyclerView recyclerViewNotes;
     private TextView textViewDate,textViewUser;
-    private Button btDisc;
+    private Button btDisc,btRetour;
     public static Eleve eleve;
     public static FirebaseAuth mAuth;
     private double startTime;
@@ -87,12 +87,13 @@ public class NotesActivity extends Activity {
             }
         });
 
-
-
-
-
-
-
-
+        btRetour=findViewById(R.id.btRetourNotes);
+        btRetour.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(NotesActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }
