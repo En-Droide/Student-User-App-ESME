@@ -18,6 +18,10 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -40,6 +44,7 @@ public class CalendarActivity extends Activity {
     public static Eleve eleve;
     private ArrayList<Cours> coursimportant=new ArrayList<>();
     private Button crea_event,btRetour,btDisc;
+    private String filepath;
 
     @SuppressLint("NewApi")
     @Override
@@ -87,6 +92,31 @@ public class CalendarActivity extends Activity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        try {
+            filepath= getFilesDir().getAbsolutePath();
+            FileInputStream fileIn = new FileInputStream(filepath+"/Test_Event.txt");
+            //ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+            //ArrayList<Cours> listeCours=new ArrayList<>();
+            boolean cont = true;
+            while (cont) {
+                try (ObjectInputStream input = new ObjectInputStream(fileIn)) {
+                    Cours obj = (Cours) input.readObject();
+                    if (obj != null) {
+                        //listeCours.add(obj);
+                        eleve.emploidutemps.add(obj);
+                    } else {
+                        cont = false;
+                    }
+                }
+            }
+            //Cours cours = (Cours)objectIn.readObject();
+            //System.out.println(cours.intitule);
+            /*for(int i=0;i<listeCours.size();i++){
+                eleve.emploidutemps.add(listeCours.get(i));
+            }*/
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
 
         eleve.emploidutemps.forEach(n -> {
             System.out.println("cours = "+n.matiere+" le "+n.date);
@@ -103,6 +133,7 @@ public class CalendarActivity extends Activity {
             }
 
         });
+
         recyclerViewCoursImportant = findViewById(R.id.RVTousCours);
         recyclerViewCoursImportant.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerViewCoursImportant.setAdapter(new CustomAdapterCours(coursimportant));
