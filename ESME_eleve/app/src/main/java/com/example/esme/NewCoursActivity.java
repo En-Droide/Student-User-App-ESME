@@ -69,42 +69,14 @@ public class NewCoursActivity extends Activity {
                        || heure_f.equals("")|| heure_f==null || importance.equals("")|| importance==null) {
                }
                else {
-                   class ObjectIOExample {
-                       public void WriteObjectToFile(Cours serObj) {
-                           try {
-                               System.out.println("WriteObjectToFile");
-                               FileOutputStream fileOut = new FileOutputStream(file_event);
-                               ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
-                               objectOut.writeObject(serObj);
-                               objectOut.close();
-                               System.out.println("The Object  was succesfully written to a file");
-                           } catch (Exception ex) {
-                               ex.printStackTrace();
-                           }
-                       }
-                       public Cours ReadObjectFromFile(String filepath) {
-                           try {
-                               FileInputStream fileIn = new FileInputStream(filepath);
-                               ObjectInputStream objectIn = new ObjectInputStream(fileIn);
 
-                               Cours obj = (Cours)objectIn.readObject();
 
-                               System.out.println("The Object has been read from the file");
-                               objectIn.close();
-                               return obj;
-                           } catch (Exception ex) {
-                               ex.printStackTrace();
-                               return null;
-                           }
-                       }
-                   }
+
                    filepath= getFilesDir().getAbsolutePath();
                    System.out.println(getFilesDir().getParent());
                    file_event = new File(filepath,"Test_Event.txt");
 
                    System.out.println("Writing_file_event");
-
-                   ObjectIOExample objectIO = new ObjectIOExample();
 
                    Cours event = new Cours();
                    event.matiere=intitule;
@@ -115,8 +87,16 @@ public class NewCoursActivity extends Activity {
                    event.estPerso=true;
                    event.salle="";
                    event.intitule="";
-
-                   objectIO.WriteObjectToFile(event);
+                   try {
+                       System.out.println("WriteObjectToFile");
+                       FileOutputStream fileOut = new FileOutputStream(file_event);
+                       ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+                       objectOut.writeObject(event);
+                       objectOut.close();
+                       System.out.println("The Object  was succesfully written to a file");
+                   } catch (Exception ex) {
+                       ex.printStackTrace();
+                   }
                     Intent intent = new Intent(NewCoursActivity.this, CalendarActivity.class);
                     startActivity(intent);
                }

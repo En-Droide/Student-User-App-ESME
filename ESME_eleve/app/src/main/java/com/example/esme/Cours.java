@@ -6,10 +6,10 @@ public class Cours implements Serializable {
     public String heureDebut,heureFin,date,matiere,intitule,professeur,salle,importance;
     public boolean estPerso;
     public Cours() {
-        this.matiere="matière";
+        this.matiere="matiere";
         this.date="01/01/1970";
-        this.intitule="intitulé";
-        this.heureDebut="HeureDébut";
+        this.intitule="intitule";
+        this.heureDebut="HeureDebut";
         this.heureFin="HeureFin";
         this.professeur="Prof";
         this.salle="Salle";

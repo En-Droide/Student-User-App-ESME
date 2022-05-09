@@ -202,7 +202,7 @@ public class MainActivity extends Activity {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         eleve.notes.add(document.toObject(Note.class));
-                        Log.d(TAG, document.getId() + " => " + document.getData());
+                        Log.d(TAG, "note "+document.getId() + " => " + document.getData());
                     }
                 } else {
                     Log.d(TAG, "Error getting documents: ", task.getException());
