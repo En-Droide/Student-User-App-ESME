@@ -29,9 +29,10 @@ public class NewCoursActivity extends Activity {
     CheckBox chk;
     int hour,minute;
     private DatePickerDialog datePickerDialog;
-    private  String filepath;
+    private String filepath;
     private File file_event;
     private String intitule,choix_date,heure_d,heure_f,importance;
+    public static Eleve eleve=CalendarActivity.eleve;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,11 +64,11 @@ public class NewCoursActivity extends Activity {
             public void onClick(View v) {
                 intitule = Intitul.getText().toString();
                 /*System.out.println((intitule==null));*/
-                System.out.println("initule: "+intitule+" choix date: "+choix_date+" heure début: "+heure_d+" heure fin "+heure_f+"importance "+importance);
+                System.out.println("intitulé: "+intitule+" choix date: "+choix_date+" heure début: "+heure_d+" heure fin "+heure_f+"importance "+importance);
                if (intitule.equals("") || choix_date==null || choix_date.equals("") || heure_d==null ||heure_d.equals("")
                        || heure_f.equals("")|| heure_f==null || importance.equals("")|| importance==null) {
                }
-                else {
+               else {
                    class ObjectIOExample {
                        public void WriteObjectToFile(Cours serObj) {
                            try {
@@ -106,18 +107,19 @@ public class NewCoursActivity extends Activity {
                    ObjectIOExample objectIO = new ObjectIOExample();
 
                    Cours event = new Cours();
-                   event.intitule=intitule;
+                   event.matiere=intitule;
                    event.date=choix_date;
                    event.heureDebut=heure_d;
                    event.heureFin=heure_f;
                    event.importance=importance;
+                   event.estPerso=true;
+                   event.salle="";
+                   event.intitule="";
 
                    objectIO.WriteObjectToFile(event);
-                   Cours cours = objectIO.ReadObjectFromFile(filepath+"/Test_Event.txt");
-                   System.out.println(cours.intitule);
                     Intent intent = new Intent(NewCoursActivity.this, CalendarActivity.class);
                     startActivity(intent);
-                }
+               }
             }
         });
         AnnulButton.setOnClickListener(new View.OnClickListener() {
