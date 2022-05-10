@@ -113,6 +113,8 @@ public class CalendarActivity extends Activity {
                                 //System.out.println("pas match, cours ajouté !");
                             }
                         }
+                        input.close();
+                        fileIn.close();
                     }
                 }
             }
