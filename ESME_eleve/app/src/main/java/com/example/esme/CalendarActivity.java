@@ -43,6 +43,7 @@ public class CalendarActivity extends Activity {
     public static FirebaseAuth mAuth;
     public static Eleve eleve;
     private ArrayList<Cours> coursimportant=new ArrayList<>();
+    public static ArrayList<Cours> coursPersos=new ArrayList<>();
     private Button crea_event,btRetour,btDisc;
     private String filepath;
 
@@ -94,31 +95,28 @@ public class CalendarActivity extends Activity {
         }
         try {
             filepath= getFilesDir().getAbsolutePath();
-            FileInputStream fileIn = new FileInputStream(filepath+"/Test_Event.txt");
-            boolean cont = true;
-            while (cont) {
-                try (ObjectInputStream input = new ObjectInputStream(fileIn)) {
-                    Cours obj = (Cours) input.readObject();
-                    if (obj != null) {
-                        //System.out.println("lecture de "+new Gson().toJson(obj));
-                        boolean coursIn=false;
-                        for(int i=0;i<eleve.emploidutemps.size();i++){
-                            //System.out.println("Comparaison entre "+new Gson().toJson(obj)+"\n et dans la liste "+new Gson().toJson(eleve.emploidutemps.get(i)));
-                            if(new Gson().toJson(eleve.emploidutemps.get(i)).equals(new Gson().toJson(obj))){
-                                coursIn=true;
-                                //System.out.println("Match !");
+            FileInputStream fileIn = new FileInputStream(filepath+"/"+eleve.nom+"_"+eleve.prenom+".txt");
+            try (ObjectInputStream input = new ObjectInputStream(fileIn)) {
+                ArrayList<Cours> coursPersos = (ArrayList<Cours>) input.readObject();
+                    if (coursPersos != null) {
+                        System.out.println("lecture de "+new Gson().toJson(coursPersos));
+                        for(int j=0;j<coursPersos.size();j++){
+                            boolean coursIn=false;
+                            for(int i=0;i<eleve.emploidutemps.size();i++){
+                                if(new Gson().toJson(eleve.emploidutemps.get(i)).equals(new Gson().toJson(coursPersos.get(j)))){
+                                    coursIn=true;
+                                    //System.out.println("Match !");
+                                }
+                            }
+                            if(!coursIn){
+                                eleve.emploidutemps.add(coursPersos.get(j));
+                                //System.out.println("pas match, cours ajouté !");
                             }
                         }
-                        if(!coursIn){
-                            eleve.emploidutemps.add(obj);
-                            //System.out.println("pas match, cours ajouté !");
-                        }
-                    } else {
-                        cont = false;
                     }
                 }
             }
-        } catch (Exception ex) {
+        catch (Exception ex) {
             ex.printStackTrace();
         }
 
