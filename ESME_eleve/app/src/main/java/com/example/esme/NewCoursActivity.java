@@ -95,6 +95,7 @@ public class NewCoursActivity extends Activity {
                        ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
                        objectOut.writeObject(coursPersos);
                        objectOut.close();
+                       fileOut.close();
                        System.out.println("The Object "+event.matiere+" was succesfully written to a file");
                    } catch (Exception ex) {
                        ex.printStackTrace();
