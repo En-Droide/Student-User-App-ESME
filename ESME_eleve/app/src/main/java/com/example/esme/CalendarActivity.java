@@ -17,16 +17,16 @@ import android.widget.CalendarView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.gson.Gson;
 
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class CalendarActivity extends Activity {
 
@@ -43,6 +43,7 @@ public class CalendarActivity extends Activity {
     public static FirebaseAuth mAuth;
     public static Eleve eleve;
     private ArrayList<Cours> coursimportant=new ArrayList<>();
+    public static ArrayList<Cours> coursPersos=new ArrayList<>();
     private Button crea_event,btRetour,btDisc;
     private String filepath;
 
@@ -94,27 +95,28 @@ public class CalendarActivity extends Activity {
         }
         try {
             filepath= getFilesDir().getAbsolutePath();
-            FileInputStream fileIn = new FileInputStream(filepath+"/Test_Event.txt");
-            //ObjectInputStream objectIn = new ObjectInputStream(fileIn);
-            //ArrayList<Cours> listeCours=new ArrayList<>();
-            boolean cont = true;
-            while (cont) {
-                try (ObjectInputStream input = new ObjectInputStream(fileIn)) {
-                    Cours obj = (Cours) input.readObject();
-                    if (obj != null) {
-                        //listeCours.add(obj);
-                        eleve.emploidutemps.add(obj);
-                    } else {
-                        cont = false;
+            FileInputStream fileIn = new FileInputStream(filepath+"/"+eleve.nom+"_"+eleve.prenom+".txt");
+            try (ObjectInputStream input = new ObjectInputStream(fileIn)) {
+                ArrayList<Cours> coursPersos = (ArrayList<Cours>) input.readObject();
+                    if (coursPersos != null) {
+                        System.out.println("lecture de "+new Gson().toJson(coursPersos));
+                        for(int j=0;j<coursPersos.size();j++){
+                            boolean coursIn=false;
+                            for(int i=0;i<eleve.emploidutemps.size();i++){
+                                if(new Gson().toJson(eleve.emploidutemps.get(i)).equals(new Gson().toJson(coursPersos.get(j)))){
+                                    coursIn=true;
+                                    //System.out.println("Match !");
+                                }
+                            }
+                            if(!coursIn){
+                                eleve.emploidutemps.add(coursPersos.get(j));
+                                //System.out.println("pas match, cours ajouté !");
+                            }
+                        }
                     }
                 }
             }
-            //Cours cours = (Cours)objectIn.readObject();
-            //System.out.println(cours.intitule);
-            /*for(int i=0;i<listeCours.size();i++){
-                eleve.emploidutemps.add(listeCours.get(i));
-            }*/
-        } catch (Exception ex) {
+        catch (Exception ex) {
             ex.printStackTrace();
         }
 
