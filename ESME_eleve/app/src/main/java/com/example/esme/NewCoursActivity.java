@@ -32,7 +32,7 @@ public class NewCoursActivity extends Activity {
     private DatePickerDialog datePickerDialog;
     private String filepath;
     private File file_event;
-    private String intitule,choix_date,heure_d,heure_f,importance;
+    private String intitule,choix_date,heure_d,heure_f,importance="Non Important";
     public static Eleve eleve=CalendarActivity.eleve;
     public static ArrayList<Cours> coursPersos;
 
@@ -77,7 +77,7 @@ public class NewCoursActivity extends Activity {
                 /*System.out.println((intitule==null));*/
                 System.out.println("intitulé: "+intitule+" choix date: "+choix_date+" heure début: "+heure_d+" heure fin "+heure_f+" importance "+importance);
                if (intitule.equals("") || choix_date==null || choix_date.equals("") || heure_d==null ||heure_d.equals("")
-                       || heure_f.equals("")|| heure_f==null || importance.equals("")|| importance==null) {
+                       || heure_f.equals("")|| heure_f==null|| importance==null) {
                }
                else {
 
