@@ -54,6 +54,14 @@ public class NewCoursActivity extends Activity {
         chk = (CheckBox) findViewById(R.id.checkBox_Importance);
         coursPersos=CalendarActivity.coursPersos;
 
+        Intent intent =getIntent();
+        if(intent.hasExtra("date")){
+            DateButton.setText(intent.getStringExtra("date"));
+            DateButton.setClickable(false);
+            choix_date=intent.getStringExtra("date");
+        }
+
+
         Intitul.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
@@ -137,6 +145,7 @@ public class NewCoursActivity extends Activity {
         int month = cal.get(Calendar.MONTH);
         int day = cal.get(Calendar.DAY_OF_MONTH);
         int style = AlertDialog.THEME_HOLO_LIGHT;
+
         datePickerDialog= new DatePickerDialog(this, style, dateSetListener, year, month, day );
     }
     public void popDatePicker(View view) {

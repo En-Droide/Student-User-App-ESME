@@ -23,7 +23,7 @@ import java.util.Locale;
 
 public class CoursCalendarActivity extends Activity {
 
-    private Button return_cal;
+    private Button return_cal,btCrea;
     private TextView theDate;
     private RecyclerView recyclerViewCours;
     public static Eleve eleve;
@@ -43,6 +43,7 @@ public class CoursCalendarActivity extends Activity {
         setContentView(R.layout.activity_cours_calendar);
         theDate = (TextView) findViewById(R.id.date_calendrier);
         return_cal = (Button) findViewById(R.id.return_cal);
+        btCrea=(Button) findViewById(R.id.bt_Crea_Event3);
 
         Intent incomingIntent = getIntent();
         String date = incomingIntent.getStringExtra("date");
@@ -69,6 +70,14 @@ public class CoursCalendarActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(CoursCalendarActivity.this, CalendarActivity.class );
+                startActivity(intent);
+            }
+        });
+        btCrea.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CoursCalendarActivity.this, NewCoursActivity.class );
+                intent.putExtra("date",dateformat);
                 startActivity(intent);
             }
         });
